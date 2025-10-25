@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html, body { height: 100%; margin: 0; }
+        body {
+            background-image: url('art-winni-anime-tokyo-ghoul.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
+            color: #fff;
+        }
+        .overlay {
+            background: rgba(0,0,0,0.45);
+            min-height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            box-sizing: border-box;
+        }
+        .card { background: rgba(255,255,255,0.06); padding: 20px 30px; border-radius: 8px; max-width: 800px; text-align: center; }
+    h1 { margin: 0 0 10px 0; font-size: 36px; }
+    </style>
+</head>
+<body>
+    <div class="overlay">
+        <div class="card">
+            <h1>Спасибо за участие</h1>
+            <p id="greeting">Ваш ответ сохранён.</p>
+        </div>
+    </div>
+    <script>
+        // Пытаемся прочитать имя пользователя (если есть) и показываем нейтральное сообщение
+        try {
+            const name = localStorage.getItem('user_name');
+            const greeting = document.getElementById('greeting');
+            if (name) {
+                greeting.textContent = 'Привет, ' + name + '! Спасибо за участие.';
+            }
+            // Не отображаем подробные ответы по просьбе пользователя — оставляем их в localStorage, но не показываем.
+        } catch (err) {
+            console.warn('Ошибка при чтении localStorage', err);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="background-color: rgb(60, 126, 156);">
+<form id="surveyForm">  
+<pre><h1 style="color: rgb(255, 255, 255);">                  Дисклеймер! Цель сайта всех оскорбить!</h1></pre>
+  <pre><h3 style="color: rgb(255, 255, 255);">                                                   социальный опрос</h3></pre>
+    <pre><label for="" style="color: rgb(255, 255, 255);">                                    Вы не традиционной ориентации?</label>  <input type="checkbox"><br><br></pre>
+ <pre style="color: rgb(255, 255, 255);">                                    Вас били в детсве?              <input type="checkbox">             <br> </pre>
+<pre style="color: rgb(255, 255, 255);">                                    Вы женененавистник?             <input type="checkbox">                                <br> <br></pre>
+<pre style="color: rgb(255, 255, 255);">                                    Вы расист?                      <input type="checkbox">                                <br>  </pre>
+<pre style="color: rgb(255, 255, 255);">                                    Вы педофил?                     <input type="checkbox">                                <br>  </pre>
+<pre style="color: rgb(255, 255, 255);">                                    Вы зоофил?                      <input type="checkbox">                                <br>  </pre>
+<pre style="color: rgb(255, 255, 255);">                                    Есть ли у вас психо проблемы?   <input type="checkbox">                                <br>  </pre>
+<pre style="color: rgb(255, 255, 255);">                                    Употребляли ли вы наркотики?    <input type="checkbox">                                <br>  </pre>
+<pre>                                    <input type="reset">             <input type="submit"></pre>
+</form>
+
+<script>
+// Собираем ответы формы, сохраняем в localStorage и перенаправляем на otvet.html
+document.getElementById('surveyForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  try {
+    const form = e.target;
+    const checkboxes = form.querySelectorAll('input[type="checkbox"]');
+    const answers = [];
+    checkboxes.forEach(function(cb){
+      // Текст вопроса — родительский элемент <pre> содержит вопрос
+      const question = cb.parentElement ? cb.parentElement.textContent.replace(/\s+/g, ' ').trim() : '';
+      answers.push({ question: question, checked: cb.checked });
+    });
+    localStorage.setItem('survey_answers', JSON.stringify(answers));
+  } catch (err) {
+    console.warn('Не удалось сохранить ответы в localStorage', err);
+  }
+  // Перенаправляем на страницу с ответом
+  window.location.href = 'otvet.html';
+});
+</script>
+
+</body>
+</html>

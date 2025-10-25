@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f4f4; }
+        .container { max-width: 400px; margin: 60px auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px #ccc; }
+        h2 { text-align: center; }
+        label { display: block; margin-top: 15px; }
+        input[type="text"], input[type="email"], input[type="password"] {
+            width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px;
+        }
+        button { width: 100%; padding: 10px; margin-top: 20px; background: #0078d7; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
+        button:hover { background: #005fa3; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Регистрация</h2>
+        <form id="regForm">
+            <label for="name">Имя:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="password">Пароль:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Зарегистрироваться</button>
+        </form>
+        <script>
+            document.getElementById('regForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Простая клиентская обработка: сохраняем имя и почту локально
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                // Если поля пустые (на всякий случай), не продолжаем
+                if (!name || !email) {
+                    alert('Пожалуйста, заполните все поля.');
+                    return;
+                }
+                try {
+                    localStorage.setItem('user_name', name);
+                    localStorage.setItem('user_email', email);
+                } catch (err) {
+                    // Игнорируем ошибки localStorage (например, если отключён)
+                    console.warn('localStorage недоступен', err);
+                }
+
+                // Покажем быстрый статус и затем перенаправим на site.html
+                const submitBtn = document.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = 'Успешно! Перенаправление...';
+                submitBtn.disabled = true;
+                setTimeout(function() {
+                    window.location.href = 'site.html';
+                }, 1100);
+            });
+        </script>
+    </div>
+</body>
+</html>
